@@ -1,0 +1,146 @@
+{
+  "rules": {
+    "comments": {
+      ".read": true,
+      
+      "$task_id": {
+        
+        ".validate": "root.child('tasks/'+$task_id).exists()",
+        
+        "$comment_id": {
+          ".write": "auth != null && !data.exists()",
+          
+          ".validate": "!data.exists()",
+          
+          "content": {
+            ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length < 100"
+          },
+          
+          "datetime": {
+            ".validate": "newData.val() <= now"
+          },
+          
+          "gravatar": {
+            ".validate": "newData.isString() && newData.val().contains('https://www.gravatar.com/avatar/')"
+          },
+          
+          "name": {
+            ".validate": "newData.isString() && newData.val().length > 0 && root.child('profile/'+auth.uid+'/name').exists()"
+          }
+        }
+      }
+    },
+    
+    "offers": {
+      ".read": true,
+      
+      "$task_id": {
+        ".validate": "root.child('tasks/'+$task_id).exists()",
+        
+        "$offer_id": {
+          // case 1: create offer
+          // case 2: runner cancel offer
+          // case 3: poster accept offer
+          ".write": "(auth != null && !data.exists())
+                    || (auth.uid === data.child('uid').val())
+                    || (auth.uid === root.child('tasks/'+$task_id+'/poster').val())",
+                    
+          "gravatar": {
+            ".validate": "newData.isString() && newData.val().contains('https://www.gravatar.com/avatar/')"
+          },
+          
+          "name": {
+            ".validate": "newData.isString() && newData.val().length > 0 && root.child('profile/'+auth.uid+'/name').exists()"
+          },
+          
+          "total": {
+            ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() < 500"
+          },
+          
+          "uid": {
+            ".validate": "auth.uid === newData.val() && root.child('profile/'+newData.val()).exists()"
+          }
+        }
+      }
+    },
+    
+    "tasks": {
+      ".read": true,
+      
+      "$task_id": {
+        ".write": "auth != null",
+        
+        // make sure all 8 fields are present before creating a task
+        ".validate": "newData.hasChildren(['title', 'description', 'total', 'status', 'gravatar', 'name', 'poster', 'datetime'])",
+        
+        "title": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length < 25"
+        },
+        
+        "description": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length < 250"
+        },
+        
+        "total": {
+          ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() < 500"
+        },
+        
+        // added newData.val() === 'cancelled' and reported to tutorial writer
+        "status": {
+          ".validate": "newData.val() === 'open' || newData.val() === 'assigned' || newData.val() === 'completed' || newData.val() === 'cancelled'"
+        },
+        
+        "gravatar": {
+          ".validate": "newData.isString() && newData.val().contains('https://www.gravatar.com/avatar/')"
+        },
+        
+        "name": {
+          ".validate": "newData.isString() && newData.val().length > 0 && root.child('profile/'+auth.uid+'/name').exists()"
+        },
+        
+        // poster must be the current user and that user must exists
+        "poster": {
+          ".validate": "auth.uid === newData.val() && root.child('profile/'+newData.val()).exists()"
+        },
+        
+        "datetime": {
+          ".validate": "newData.val() <= now"
+        }
+      }
+    },
+    
+    "profile": {
+      ".read": true,
+      
+      "$uid": {
+        ".write": "!data.exists() && auth.uid === $uid"
+      }
+    },
+    
+    "user_tasks": {
+      "$uid": {
+        // only current user can view data in Dashboard
+        ".read": "auth != null && auth.uid === $uid",
+        
+        ".validate" : "root.child('profile/'+$uid).exists()",
+        
+        "$user_tasks_id" : {
+          ".write": "auth != null",
+          
+          // the data we gonna save should never exists before
+          ".validate": "!data.exists()",
+          
+          "taskId": {
+            ".validate": "root.child('tasks/'+newData.val()).exists()
+                         // only poster (current user) can create record
+                         && root.child('tasks/'+newData.val()+'/poster').val() === $uid"
+          }
+        }
+      }
+    },
+    
+    "$others": {
+      ".validate": false
+    }
+  }
+}
