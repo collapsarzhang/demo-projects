@@ -3,6 +3,7 @@ demo projects for learning web development technologies
 
 # Task Ninja
 Tutorial Link: https://code4startup.com/projects/ninja-learn-angularjs-firebase-by-cloning-udemy
+Demo Link: http://kevrz.com/demo-projects/taskninja/#/
 
 Issue found, fixed, and reported to tutorial writer:
 - in task service, corrected the returned promise
