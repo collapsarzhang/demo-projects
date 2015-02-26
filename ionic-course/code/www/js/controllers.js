@@ -78,7 +78,7 @@ Controller for the favorites page
 	};
 
 	$scope.openSong = function(song) {
-		$window.open(song.open_url, "_system");
+		$window.open(song.open_url, "_blank", "location=no,toolbarposition=top");
 	};
 
 	$scope.showShareList = function(song) {
@@ -107,7 +107,7 @@ Controller for the favorites page
 					$window.open(twitterLink, "_system");
 				}
 				*/
-				$window.open(object.url, "_system");
+				$window.open(object.url, "_blank", "location=no,toolbarposition=top");
 				return true;
 			}
 		});
