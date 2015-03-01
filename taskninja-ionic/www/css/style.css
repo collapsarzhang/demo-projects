@@ -1,0 +1,50 @@
+/* Empty. Add your own CSS if you like */
+
+span.label {
+	width: 90px;
+
+	display: inline-block;
+	font-weight: bold;
+	position: absolute;
+	right: 20px;
+	bottom: 10px;
+	min-height: 20px;
+	line-height: 16px;
+}
+
+span.status {
+	width: 90px;
+	display: inline-block;
+	font-weight: bold;
+	position: absolute;
+	right: 20px;
+	top: 15px;
+	min-height: 20px;
+	line-height: 16px;
+}
+
+span.card-title {
+	
+}
+
+.comments {
+	padding-bottom: 0px;
+}
+
+.comment-timestamp {
+	position: absolute;
+	top: 18px;
+	right: 10px;
+}
+
+.comment-poster {
+	position: absolute;
+	top: 20px;
+	left: 80px;
+}
+
+.comment-detail {
+	position: absolute;
+	left: 80px;
+	top: 40px;
+}

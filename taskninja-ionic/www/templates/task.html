@@ -1,0 +1,41 @@
+<ion-view view-title="View Task">
+	<ion-content>
+		<ion-list>
+			<ion-item class="item item-avatar" ng-click="showTaskOptions(selectedTask)">
+				<img ng-src="{{selectedTask.gravatar}}">
+				<h2>{{selectedTask.title | limitTo: 25}}{{selectedTask.title.length > 25? "...":""}}</h2>
+				<p>Posted by {{selectedTask.name}} - <span am-time-ago="selectedTask.datetime"></span></p>
+				<span class="label button button-small button-assertive">${{selectedTask.total}}</span>
+				<span class="status button button-small button-calm">{{selectedTask.status}}</span>
+			</ion-item>
+
+			<div class="card">
+			  <div class="item item-divider">
+			    <span class="card-title">Description</span>
+			  </div>
+			  <div class="item item-text-wrap">
+				{{selectedTask.description}}
+			  </div>
+			</div>
+
+			<div class="card">
+			  <div class="item item-divider">
+			    <span class="card-title">Comments</span>
+			  </div>
+			  <div class="item item-text-wrap" ng-hide="comments && comments.length > 0">
+				No Comment About this Task
+			  </div>
+			  <div ng-show="comments && comments.length > 0">
+				  <div class="item item-text-wrap comments" ng-repeat="comment in comments">
+					<div class="item-avatar comment-avatar"><img ng-src="{{comment.gravatar}}"></div>
+					<div class="comment-body">
+						<span class="comment-poster"><h3>{{comment.name}}:</h3></span>
+						<span class="comment-timestamp"><p am-time-ago="comment.datetime"></p></span>
+						<span class="comment-detail">{{comment.content}}</span>
+					</div>
+				  </div>
+			  </div>
+			</div>
+		</ion-list>
+	</ion-content>
+</ion-view>

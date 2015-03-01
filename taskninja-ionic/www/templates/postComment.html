@@ -1,0 +1,21 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Post Comment</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closePostComment()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form ng-submit="doPostComment(postCommentData)">
+      <div class="list">
+    		<label class="item item-input item-floating-label">
+    			<span class="input-label">What you want to say about this task?</span>
+    			<textarea placeholder="What you want to say about this task?" ng-model="postCommentData.content" msd-elastic></textarea>
+    		</label>
+        <label class="item">
+          <button class="button button-block button-calm" type="submit">Submit</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>

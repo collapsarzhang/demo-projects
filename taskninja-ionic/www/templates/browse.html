@@ -1,0 +1,19 @@
+<ion-view view-title="All Tasks">
+	<ion-content>
+		<ion-list>
+			<label class="item item-input">
+				<i class="icon ion-search placeholder-icon"></i>
+				<input type="text" ng-model="searchTask" placeholder="Search">
+			</label>
+			<ion-item ng-repeat="task in tasks | filter: {title: searchTask, status: '!cancelled'} | orderBy: 'datetime':true" ng-href="#/app/task/{{task.$id}}" class="item item-avatar">
+				<img ng-src="{{task.gravatar}}">
+				<h2>{{task.title | limitTo: 25}}{{task.title.length > 25? "...":""}}</h2>
+				<p am-time-ago="task.datetime"></p>
+				<span class="label button button-small button-assertive">${{task.total}}</span>
+				<span class="status button button-small button-calm">{{task.status}}</span>
+			</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-view>
+
+<!-- ng-click="edit(task.$id)" -->

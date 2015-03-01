@@ -1,0 +1,29 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Post Task</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closePost()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form ng-submit="doPost(postData)">
+      <div class="list">
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Task Title</span>
+			<input type="text" placeholder="Task Title" ng-model="postData.title">
+		</label>
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Describe what you need done</span>
+			<textarea placeholder="Describe what you need done" ng-model="postData.description" msd-elastic></textarea>
+		</label>
+		<label class="item item-input item-floating-label">
+			<span class="input-label">How much will you pay?</span>
+			<input type="number" placeholder="How much will you pay?" ng-model="postData.total">
+		</label>
+        <label class="item">
+          <button class="button button-block button-calm" type="submit">Submit</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>
