@@ -1,0 +1,21 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Make an Offer</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closePostOffer()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form ng-submit="doPostOffer(postOfferData)">
+      <div class="list">
+    		<label class="item item-input item-floating-label">
+    			<span class="input-label">How much will you offer for this task?</span>
+    			<input type="number" placeholder="How much will you offer for this task?" ng-model="postOfferData.total">
+    		</label>
+        <label class="item">
+          <button class="button button-block button-calm" type="submit">Offer Now</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>

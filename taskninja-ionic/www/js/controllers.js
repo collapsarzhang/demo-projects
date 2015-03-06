@@ -114,7 +114,7 @@ angular.module('starter.controllers', ['starter.services'])
 
 })
 
-.controller('TaskCtrl', function($scope, $stateParams, $state, $ionicLoading, $ionicModal, $ionicActionSheet, $ionicHistory, Task, Auth, Comment) {
+.controller('TaskCtrl', function($scope, $stateParams, $state, $ionicLoading, $ionicModal, $ionicActionSheet, $ionicHistory, Task, Auth, Comment, Offer) {
 
   $scope.user = Auth.user;
 
@@ -128,7 +128,23 @@ angular.module('starter.controllers', ['starter.services'])
     
     $scope.selectedTask = task;
     $scope.comments = Comment.comments(task.$id);
+    $scope.offers = Offer.offers(task.$id);
+
+    $scope.isOfferMaker = Offer.isMaker;
+
+    if($scope.signedIn()) {
+      Offer.isOffered(task.$id).then(function(data) {
+        $scope.alreadyOffered = data;
+      });
+    }
   }
+
+  $scope.cancelOffer = function(offerId) {
+    Offer.cancelOffer($scope.selectedTask.$id, offerId).then(function() {
+      $ionicLoading.show({ template: 'Successfully Cancelled Offer', noBackdrop: true, duration: 2000 });
+      $scope.alreadyOffered = false;
+    });
+  };
 
   $scope.showTaskOptions = function() {
 
@@ -161,12 +177,12 @@ angular.module('starter.controllers', ['starter.services'])
 
      }
 
-     else if(Task.isOpen(task)) {
+     else if(Task.isOpen(task) && Auth.signedIn()) {
+        if ($scope.alreadyOffered) var buttons = [{ text: 'Comment', type: 'postComment' }];
+        else var buttons = [{ text: 'Comment', type: 'postComment' }, { text: 'Offer', type: 'postOffer' }];
        // Show the action sheet
        $ionicActionSheet.show({
-         buttons: [
-           { text: 'Comment', type: 'postComment' }
-         ],
+         buttons: buttons,
          titleText: 'Task Options',
          cancelText: 'Cancel',
          cancel: function() {
@@ -174,6 +190,7 @@ angular.module('starter.controllers', ['starter.services'])
           },
          buttonClicked: function(index, object) {
            if (object.type === 'postComment') $scope.postComment();
+           if (object.type === 'postOffer') $scope.postOffer();
            return true;
          }
        });
@@ -181,6 +198,44 @@ angular.module('starter.controllers', ['starter.services'])
      }
 
    };
+
+  $scope.postOfferData = {};
+
+  // Create the login modal that we will use later
+  $ionicModal.fromTemplateUrl('templates/offer.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.postOfferModal = modal;
+  });
+
+  // Triggered in the login modal to close it
+  $scope.closePostOffer = function() {
+    $scope.postOfferModal.hide();
+  };
+
+  // Open the login modal
+  $scope.postOffer = function() {
+    $scope.postOfferModal.show();
+  };
+
+  // Perform the login action when the user submits the login form
+  $scope.doPostOffer = function(offer) {
+    var o = {
+      total: offer.total,
+      uid: $scope.user.uid,
+      name: $scope.user.profile.name,
+      gravatar: $scope.user.profile.gravatar
+    };
+
+    Offer.makeOffer($scope.selectedTask.$id, o).then(function() {
+      $scope.postOfferData = {};
+      $scope.closePostOffer();
+      $scope.alreadyOffered = true;
+      $ionicLoading.show({ template: 'Successfully Posted Offer', noBackdrop: true, duration: 2000 });
+    });
+
+  };
+
 
   $scope.postCommentData = {};
 

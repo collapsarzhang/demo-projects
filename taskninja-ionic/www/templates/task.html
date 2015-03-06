@@ -20,6 +20,24 @@
 
 			<div class="card">
 			  <div class="item item-divider">
+			    <span class="card-title">Offers</span>
+			  </div>
+			  <div class="item item-text-wrap" ng-hide="offers && offers.length > 0">
+				No Offer About this Task yet
+			  </div>
+			  <div ng-show="offers && offers.length > 0">
+				  <div class="item item-text-wrap offers" ng-repeat="offer in offers">
+					<div class="item-avatar"><img ng-src="{{offer.gravatar}}"></div>
+					<div class="offer-body">
+						<span class="offer button button-calm">${{offer.total}}</span>
+						<span class="offer-cancel button button-assertive" ng-click="cancelOffer(offer.$id)">Cancel My Offer</span>
+					</div>
+				  </div>
+			  </div>
+			</div>
+
+			<div class="card">
+			  <div class="item item-divider">
 			    <span class="card-title">Comments</span>
 			  </div>
 			  <div class="item item-text-wrap" ng-hide="comments && comments.length > 0">

@@ -1,4 +1,28 @@
 /* Empty. Add your own CSS if you like */
+.item-avatar {
+	min-height: 50px;
+}
+span.offer {
+	width: 90px;
+	display: inline-block;
+	font-weight: bold;
+	position: absolute;
+	left: 80px;
+	top: 22px;
+	min-height: 30px;
+	line-height: 26px;
+}
+
+span.offer-cancel {
+	width: 160px;
+	display: inline-block;
+	font-weight: bold;
+	position: absolute;
+	left: 180px;
+	top: 22px;
+	min-height: 30px;
+	line-height: 26px;
+}
 
 span.label {
 	width: 90px;
@@ -21,10 +45,6 @@ span.status {
 	top: 15px;
 	min-height: 20px;
 	line-height: 16px;
-}
-
-span.card-title {
-	
 }
 
 .comments {
