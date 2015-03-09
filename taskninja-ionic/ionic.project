@@ -1,6 +1,6 @@
 {
   "name": "taskninja-ionic",
-  "app_id": "",
+  "app_id": "48bee9f5",
   "gulpStartupTasks": [
     "sass",
     "watch"
