@@ -1,0 +1,24 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Hero Avatar</th>
+						<th>Hero Name</th>
+						<th>Games Play</th>
+						<th>Win Rate</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="hero in heroInfo">
+						<td><img src="http://www.heroesfire.com/images/wikibase/icon/heroes/{{hero.$id}}.png" class="heroes"></td>
+						<td>{{hero.$id.charAt(0).toUpperCase() + hero.$id.slice(1)}}</td>
+						<td>{{hero.victory+hero.defeat}}</td>
+						<td>{{hero.victory/(hero.victory+hero.defeat)*100}}%</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+</div>

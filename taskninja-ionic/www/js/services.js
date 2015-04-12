@@ -1,6 +1,6 @@
 angular.module('starter.services', [])
 
-.factory('Offer', function(FURL, $firebase, $q, Auth) {
+.factory('Offer', function(FURL, $firebase, $q, Auth, Task) {
 
   var ref = new Firebase(FURL);
   var user = Auth.user;
@@ -46,6 +46,14 @@ angular.module('starter.services', [])
 
     cancelOffer: function(taskId, offerId) {
       return Offer.getOffer(taskId, offerId).$remove();
+    },
+
+    acceptOffer: function(taskId, offerId, runnerId) {
+      var o = Offer.getOffer(taskId, offerId);
+      return o.$update({accepted: true}).then(function() {
+        var t = Task.getTask(taskId);
+        return t.$update({status: 'assigned', runner: runnerId});
+      });
     }
 
   };
@@ -110,6 +118,19 @@ angular.module('starter.services', [])
 
     isOpen: function(task) {
       return task.status === 'open';
+    },
+
+    completeTask: function(taskId) {
+      var t = Task.getTask(taskId);
+      return t.$update({status: 'completed'});
+    },
+
+    isAssignee: function(task) {
+      return (user && user.provider && user.uid === task.runner);
+    },
+
+    isCompleted: function(task) {
+      return task.status === 'completed';
     }
   };
 

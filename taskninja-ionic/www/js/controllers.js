@@ -131,18 +131,41 @@ angular.module('starter.controllers', ['starter.services'])
     $scope.offers = Offer.offers(task.$id);
 
     $scope.isOfferMaker = Offer.isMaker;
+    
 
     if($scope.signedIn()) {
       Offer.isOffered(task.$id).then(function(data) {
         $scope.alreadyOffered = data;
       });
+
+      $scope.isTaskCreator = Task.isCreator;
+      $scope.isOpen = Task.isOpen;
+      $scope.isAssignee = Task.isAssignee;
+      $scope.isCompleted = Task.isCompleted;
     }
   }
 
-  $scope.cancelOffer = function(offerId) {
-    Offer.cancelOffer($scope.selectedTask.$id, offerId).then(function() {
-      $ionicLoading.show({ template: 'Successfully Cancelled Offer', noBackdrop: true, duration: 2000 });
-      $scope.alreadyOffered = false;
+  $scope.completeTask = function(taskId) {
+    Task.completeTask(taskId).then(function() {
+      $ionicLoading.show({ template: 'Successfully Completed the Task', noBackdrop: true, duration: 2000 });
+    });
+  };
+
+  $scope.cancelOffer = function(offer) {
+    if(Offer.isMaker(offer) && Task.isOpen(task)) {
+      Offer.cancelOffer($scope.selectedTask.$id, offer.$id).then(function() {
+        $ionicLoading.show({ template: 'Successfully Cancelled Offer', noBackdrop: true, duration: 2000 });
+        $scope.alreadyOffered = false;
+      });
+    }
+  };
+
+  $scope.acceptOffer = function(offer) {
+    var offerId = offer.$id;
+    var runnerId = offer.uid;
+
+    Offer.acceptOffer($scope.selectedTask.$id, offerId, runnerId).then(function() {
+      $ionicLoading.show({ template: 'Successfully Accepted Offer', noBackdrop: true, duration: 2000 });
     });
   };
 

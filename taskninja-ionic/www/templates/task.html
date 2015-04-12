@@ -4,7 +4,7 @@
 			<ion-item class="item item-avatar" ng-click="showTaskOptions(selectedTask)">
 				<img ng-src="{{selectedTask.gravatar}}">
 				<h2>{{selectedTask.title | limitTo: 25}}{{selectedTask.title.length > 25? "...":""}}</h2>
-				<p>Posted by {{selectedTask.name}} - <span am-time-ago="selectedTask.datetime"></span></p>
+				<p>{{selectedTask.name}}</p>
 				<span class="label button button-small button-assertive">${{selectedTask.total}}</span>
 				<span class="status button button-small button-calm">{{selectedTask.status}}</span>
 			</ion-item>
@@ -27,10 +27,13 @@
 			  </div>
 			  <div ng-show="offers && offers.length > 0">
 				  <div class="item item-text-wrap offers" ng-repeat="offer in offers">
-					<div class="item-avatar"><img ng-src="{{offer.gravatar}}"></div>
+					<div class="item-avatar"><img ng-src="{{offer.gravatar}}">{{offer.name}}</div>
 					<div class="offer-body">
 						<span class="offer button button-calm">${{offer.total}}</span>
-						<span class="offer-cancel button button-assertive" ng-click="cancelOffer(offer.$id)">Cancel My Offer</span>
+						<span class="offer-cancel button button-assertive" ng-click="cancelOffer(offer)" ng-show="isOfferMaker(offer) && isOpen(selectedTask)">Cancel My Offer</span>
+						<span class="offer-cancel button button-assertive" ng-click="acceptOffer(offer)" ng-show="isTaskCreator(selectedTask) && isOpen(selectedTask)">Accept This Offer</span>
+						<span class="offer-cancel button button-assertive" ng-click="completeTask(selectedTask.$id)" ng-show="isAssignee(selectedTask) && !isCompleted(selectedTask)">Complete the Task</span>
+						<span class="offer-status button button-assertive" ng-show="offer.accepted">Assigned</span>
 					</div>
 				  </div>
 			  </div>
