@@ -1,0 +1,52 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>Hots-Stat</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.10/toaster.min.css" />
+    <link rel="stylesheet" href="angular-chart/angular-chart.css">
+
+    <link rel="stylesheet" href="styles/main.css">
+    
+  </head>
+  <body ng-app="HotsStatApp">
+
+    <toaster-container toaster-options="{'timeout': 3000, 'close-button': true}"></toaster-container>
+
+    <div ng-include="'views/nav.html'"></div>
+
+    <div ng-view=""></div>    
+
+    <script src="http://code.jquery.com/jquery-2.1.3.js"></script>    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-animate.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-resource.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-route.js"></script>
+    
+    <script src="https://cdn.firebase.com/js/client/2.1.0/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/0.9.1/angularfire.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.10/toaster.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/0.9.0/angular-moment.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+    <script src="angular-chart/angular-chart.min.js"></script>
+    
+    <script src="scripts/app.js"></script>
+
+    <script src="scripts/controllers/personal.js"></script>
+    <script src="scripts/controllers/all.js"></script>
+    <script src="scripts/controllers/auth.js"></script>
+
+    <script src="scripts/services/auth.js"></script>
+    <script src="scripts/services/user.js"></script>
+    <script src="scripts/services/all.js"></script>
+
+</body>
+</html>

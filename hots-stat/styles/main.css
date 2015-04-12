@@ -1,0 +1,7 @@
+img.heroes {
+	width: 40px;
+}
+
+.table > tbody > tr > td {
+	vertical-align: middle;
+}
