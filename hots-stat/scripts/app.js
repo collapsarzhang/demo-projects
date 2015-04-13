@@ -11,7 +11,7 @@ var app = angular
     'chart.js'
   ])
   .constant('FURL', 'https://hots-stat.firebaseio.com/')
-  /*
+  
   .run(function($rootScope, $location) {
     $rootScope.$on('$routeChangeError', function(event, next, previous, error) {
 
@@ -20,23 +20,23 @@ var app = angular
       }
     });
   })
-  */
+  
   .config(function ($routeProvider) {
     $routeProvider      
       .when('/', {
         templateUrl: 'views/all.html',
-        controller: 'AllController',
-        resolve: {
-          /*
-          currentAuth: function(Auth) {
-            return Auth.requireAuth();
-          }
-          */
-        }          
+        controller: 'AllController'         
       })
       .when('/personal', {
         templateUrl: 'views/personal.html',
-        controller: 'PersonalController',      
+        controller: 'PersonalController',
+                resolve: {
+          
+          currentAuth: function(Auth) {
+            return Auth.requireAuth();
+          }
+          
+        }      
       })
       .when('/login', {
         templateUrl: 'views/login.html',
