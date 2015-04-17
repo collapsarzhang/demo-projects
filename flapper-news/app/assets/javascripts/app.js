@@ -3,7 +3,8 @@ var app = angular.module('flapperNews', ['ui.router', 'templates']);
 app.config([
 '$stateProvider',
 '$urlRouterProvider',
-function($stateProvider, $urlRouterProvider) {
+'$locationProvider',
+function($stateProvider, $urlRouterProvider, $locationProvider) {
 
   $stateProvider
     .state('home', {
@@ -18,4 +19,6 @@ function($stateProvider, $urlRouterProvider) {
 	});
 
   $urlRouterProvider.otherwise('home');
+
+  $locationProvider.html5Mode(true);
 }]);
